@@ -6,23 +6,25 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/sklearn-json-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/sklearn-json-{{ version }}.tar.gz
   sha256: 9c7ab24064705adfa9fdea2b83645545559d58607501fd2328c8fae7f138ee25
 
 build:
-  number: 0
+  number: 1
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv
 
 requirements:
   host:
     - pip
-    - python >=3.5
+    - python {{ python_min }}
   run:
-    - python >=3.5
+    - python >={{ python_min }}
     - scikit-learn >=0.21.3
 
 test:
+  requires:
+    - python {{ python_min }}
   imports:
     - sklearn_json
 
